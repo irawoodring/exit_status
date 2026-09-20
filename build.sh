@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-V86_DIR=~/Repos/v86                 # your clone of copy/v86
+V86_DIR="${V86_DIR:-$HOME/Repos/v86}"   # default: your local clone; override via env
 OUT=public/alpine
 
 docker build --platform linux/386 -t v86-alpine alpine-build/

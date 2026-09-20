@@ -25,7 +25,7 @@ jobs:
           cache: npm
 
       - name: Get v86 conversion scripts
-        run: git clone --depth 1 https://github.com/copy/v86.git ~/v86
+        run: git clone --depth 1 https://github.com/copy/v86.git "$HOME/v86"
 
       - name: Build Alpine rootfs
         run: bash build.sh
