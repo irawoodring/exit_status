@@ -4,7 +4,7 @@ import { openLoadOverlay } from "./LoadOverlay.js";
 import { createLoadingOverlay } from "./LoadingOverlay.js";
 
 const base = import.meta.env.BASE_URL;
-const loading = createLoadingOverlay(document.getElementById("screen_wrap"));
+let loading;
 
 function loadScript(src) {
     return new Promise((resolve, reject) => {
@@ -21,6 +21,7 @@ await loadScript(`${base}v86/libv86.js`);
 let emulator;
 
 function startVM() {
+    loading = createLoadingOverlay(document.getElementById("screen_wrap"))
     emulator = new V86({
         wasm_path: `${base}v86/v86.wasm`,
         memory_size: 256 * 1024 * 1024,
