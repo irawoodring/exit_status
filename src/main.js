@@ -1,8 +1,10 @@
 import "./style.css";
 import { createButtonPanel } from "./ButtonPanel.js";
 import { openLoadOverlay } from "./LoadOverlay.js";
+import { createLoadingOverlay } from "./LoadingOverlay.js";
 
 const base = import.meta.env.BASE_URL;
+const loading = createLoadingOverlay(document.getElementById("screen_wrap"));
 
 function loadScript(src) {
     return new Promise((resolve, reject) => {
@@ -37,6 +39,9 @@ function startVM() {
         // net_device: { type: "virtio", relay_url: "wisps://wisp.mercurywork.shop" },
         autostart: true,
     });
+    emulator.add_listener("download-progress", (e) => loading.progress(e));
+    emulator.add_listener("download-error", (e) => loading.fail(e));
+    emulator.add_listener("emulator-ready", () => loading.hide());
 }
 
 async function restartVM() {
@@ -56,8 +61,8 @@ async function saveState() {
 }
 
 async function loadState(file) {
-  const buf = await file.arrayBuffer();
-  await emulator.restore_state(buf);
+    const buf = await file.arrayBuffer();
+    await emulator.restore_state(buf);
 }
 
 const { element } = createButtonPanel([
