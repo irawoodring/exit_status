@@ -2,6 +2,13 @@
 set -euo pipefail
 
 V86_DIR="${V86_DIR:-$HOME/Repos/v86}"   # default: your local clone; override via env
+
+if [ ! -f "$V86_DIR/tools/fs2json.py" ]; then
+  echo "v86 scripts not found at $V86_DIR, cloning..."
+  git clone --depth 1 https://github.com/copy/v86.git "$V86_DIR"
+fi
+echo "Using v86 scripts from: $V86_DIR"
+
 OUT=public/alpine
 
 docker build --platform linux/386 -t v86-alpine alpine-build/
