@@ -1,0 +1,19 @@
+{
+  "name": "2terminal",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npm run copy-v86 && vite",
+    "build": "npm run copy-v86 && vite build",
+    "copy-v86": "mkdir -p public/v86 && cp node_modules/v86/build/libv86.js node_modules/v86/build/v86.wasm ~/Repos/v86/bios/seabios.bin ~/Repos/v86/bios/vgabios.bin public/v86/"
+  },
+  "devDependencies": {
+    "vite": "^8.3.0"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "tailwindcss": "^4.3.3",
+    "v86": "^0.5.461"
+  }
+}
