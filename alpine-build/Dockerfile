@@ -48,3 +48,4 @@ COPY motd /etc/motd
 COPY files/ /home/user/
 RUN chown user:user -R /home/user
 RUN echo 'export PATH="/home/user/.bin:$PATH"' >> /home/user/.profile && chown user:user /home/user/.profile
+RUN mv /etc/profile.d/color_prompt.sh.disabled /etc/profile.d/color_prompt.sh

@@ -1,0 +1,42 @@
+Hello hacker.
+
+We've been watching you.
+You think you're ready, but you aren't.  Not until you pass our tests.
+
+Now that you're in the system, you can use the terminal to control it.  You
+can work with files, compile and run programs, etc.  Anything you can do
+with a mouse and a keyboard you can do here.  Usually more efficiently.  But
+you need to be able to navigate it first.  Here are some basic commands:
+
+ls - List segments.  Shows you the files and directories in the directory
+     you are in.
+cd - Change directory.  When you login you are at /home/user.  If you enter
+     'cd examples', you would then be in /home/user/examples.  To go back up
+     a directory you'd type 'cd ..'.
+pwd - Present working directory. Prints out the path of the directory you
+     are currently in.
+mkdir - Makes a new directory.  If you are at /home/user and type 'mkdir notes',
+     you will now have a directory '/home/user/notes'.
+cp - Copy a file.  If the filename is 'blah', you could write a command like
+     'cp blah new_blah' to make a copy of it.
+mv - Move a file.  If you were in your /home/user directory and there is a file
+     called 'blah', you could move it to your notes directory you made with
+     'mv blah notes/.'.  The '.' on the end of that command means you still
+     want to call it 'blah'.  If you didn't, you could give it a new name with a
+     command like 'mv blah notes/new_blah'.
+rm - Remove a file or directory.  Typing 'rm notes' in a directory that holds a
+     file called 'blah' will remove it. To remove an entire directory you'd need
+     to add some extra to the command; 'rm -rf notes' would delete the notes
+     directory if you were in the directory that holds it.  The -rf means
+     delete all the files in the directory first, then the directory.
+cat - Concatenates files.  Mostly we will use it to show a file's contents.  For
+     instance, 'cat /home/user/notes/note_one' would print the text of a file
+     called 'note_one' in the /home/user/notes directory (if there is one there).
+echo - Print a message.  If you redirect the output to a file you can create a file
+     with the text.  For instance, "echo 'Hello world.' > my_file'.
+
+These are the basic commands you will need to begin your training. They need to
+be muscle memory for you.  Use them to figure out how to progress.  You'll pick up
+other commands as you go.  Start in the level1 directory and search for hints of
+what to do next.
+
