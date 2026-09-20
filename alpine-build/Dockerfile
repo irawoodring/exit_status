@@ -4,7 +4,7 @@ ARG USERNAME=user
 ARG USERPASS=password
 
 ENV KERNEL=virt
-ENV ADDPKGS="nodejs python3 wget curl vim build-base nethack"
+ENV ADDPKGS="nodejs python3 wget curl vim build-base nethack gpg"
 
 RUN apk add --no-cache openrc alpine-base agetty alpine-conf linux-$KERNEL linux-firmware-none $ADDPKGS
 RUN sed -i 's/getty 38400 tty1/agetty --autologin root tty1 linux/' /etc/inittab
@@ -45,3 +45,6 @@ RUN apk add --no-cache sudo && \
 # autologin as the user on tty1 instead of root
 RUN sed -i "s/--autologin root/--autologin $USERNAME/" /etc/inittab
 COPY motd /etc/motd
+COPY files/ /home/user/
+RUN chown user:user -R /home/user
+RUN echo 'export PATH="/home/user/.bin:$PATH"' >> /home/user/.profile && chown user:user /home/user/.profile
