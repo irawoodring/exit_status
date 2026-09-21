@@ -124,5 +124,5 @@ const { element } = createButtonPanel([
     { id: "download", label: "Download", onClick: downloadFile },
 ]);
 
-document.querySelector("#button_panel").append(element);
+document.querySelector("#buttons").append(element);
 startVM();

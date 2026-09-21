@@ -1,25 +1,30 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Exit Status - A game to teach the CLI</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-  </head>
-  <body>
-  <div class="flex items-start justify-center gap-4 p-4">
-    <div id="screen_wrap" class="relative shrink-0">
-      <div id="screen_container">
-        <div></div>
-        <canvas style="display: none"></canvas>
-      </div>
-    </div>
-    <aside id="button_panel" class="w-56 shrink-0"></aside>
-  </div>
-  <script type="module" src="/src/main.js"></script>
-</body>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Exit Status - A game to teach the CLI</title>
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+    </head>
+    <body>
+        <div class="flex items-start justify-center gap-4 p-4">
+            <div id="screen_wrap" class="relative shrink-0">
+                <div id="screen_container">
+                    <div></div>
+                    <canvas style="display: none"></canvas>
+                </div>
+            </div>
+            <aside id="button_panel" class="flex w-56 shrink-0 flex-col gap-3">
+                <div id="buttons"></div>
+                <p id="panel_note" class="text-xs leading-relaxed text-gray-400">
+                Files you upload or create live in memory and are lost on reload. If you want files to persist, download a save state and restore it. Files may be drag-and-dropped onto the terminal to upload them to /home/user.
+                </p>
+            </aside>
+        </div>
+        <script type="module" src="/src/main.js"></script>
+    </body>
+    </body>
 </html>
