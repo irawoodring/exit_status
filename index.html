@@ -8,8 +8,16 @@
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
         <link rel="manifest" href="/site.webmanifest">
+        <script>
+            (function () {
+                var saved = null;
+                try { saved = localStorage.getItem("theme"); } catch (e) {}
+                var dark = saved ? saved === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+                document.documentElement.classList.toggle("dark", dark);
+            })();
+        </script>
     </head>
-    <body>
+    <body class="bg-gray-100 text-gray-900 dark:bg-neutral-950 dark:text-gray-200">
         <div class="flex items-start justify-center gap-4 p-4">
             <div id="screen_wrap" class="relative shrink-0">
                 <div id="screen_container">

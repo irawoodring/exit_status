@@ -1,4 +1,5 @@
 import "./style.css";
+import { isDark, toggleTheme } from "./theme.js";
 import { createButtonPanel } from "./ButtonPanel.js";
 import { openLoadOverlay } from "./LoadOverlay.js";
 import { createLoadingOverlay } from "./LoadingOverlay.js";
@@ -113,16 +114,22 @@ wrap.addEventListener("drop", async (e) => {
   }
 });
 
-const { element } = createButtonPanel([
+const { element, buttons } = createButtonPanel([
     { id: "restart", label: "Restart", variant: "primary", onClick: restartVM },
     { id: "stop", label: "Stop", variant: "danger", onClick: () => emulator.stop() },
     { id: "run", label: "Run", onClick: () => emulator.run() },
     { id: "fullscreen", label: "Fullscreen", onClick: () => emulator.screen_go_fullscreen() },
+    { id: "theme", label: "", wide: true, onClick: () => { toggleTheme(); syncThemeLabel(); } },
     { id: "save", label: "Save state", wide: true, onClick: saveState },
     { id: "load", label: "Load state", wide: true, onClick: () => openLoadOverlay(loadState) },
     { id: "upload", label: "Upload", onClick: uploadFiles },
     { id: "download", label: "Download", onClick: downloadFile },
 ]);
+
+function syncThemeLabel() {
+  buttons.theme.textContent = isDark() ? "☀ Light mode" : "☾ Dark mode";
+}
+syncThemeLabel();
 
 document.querySelector("#buttons").append(element);
 startVM();

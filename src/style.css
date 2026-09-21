@@ -1,9 +1,21 @@
 @import "tailwindcss";
 
+/* dark: variants follow the .dark class instead of the OS setting */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root { color-scheme: light; }
+:root.dark { color-scheme: dark; } /* dark scrollbars and form controls */
+
+#screen_container {
+  transition: filter 0.2s;
+}
+:root:not(.dark) #screen_container {
+  filter: invert(1) hue-rotate(180deg);
+}
+
 html, body {
   margin: 0;
   height: 100%;
-  background: #111;
 }
 
 #screen_container {
