@@ -3,8 +3,11 @@ import { createButtonPanel } from "./ButtonPanel.js";
 import { openLoadOverlay } from "./LoadOverlay.js";
 import { createLoadingOverlay } from "./LoadingOverlay.js";
 
-const base = import.meta.env.BASE_URL;
+let emulator;
 let loading;
+const base = import.meta.env.BASE_URL;
+
+await loadScript(`${base}v86/libv86.js`);
 
 function loadScript(src) {
     return new Promise((resolve, reject) => {
@@ -15,10 +18,6 @@ function loadScript(src) {
         document.head.appendChild(s);
     });
 }
-
-await loadScript(`${base}v86/libv86.js`);
-
-let emulator;
 
 function startVM() {
     loading = createLoadingOverlay(document.getElementById("screen_wrap"))
@@ -66,6 +65,54 @@ async function loadState(file) {
     await emulator.restore_state(buf);
 }
 
+const UPLOAD_DIR = "home/user"; // no leading slash; use your real user's home
+
+function downloadBlob(name, data) {
+    const url = URL.createObjectURL(new Blob([data]));
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = name;
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
+// reuse this in saveState() too: downloadBlob("v86-state.bin", state)
+
+const uploadInput = document.createElement("input");
+uploadInput.type = "file";
+uploadInput.multiple = true;
+uploadInput.addEventListener("change", async () => {
+    for (const file of uploadInput.files) {
+        const data = new Uint8Array(await file.arrayBuffer());
+        await emulator.create_file(`${UPLOAD_DIR}/${file.name}`, data);
+    }
+    uploadInput.value = ""; // allow re-uploading the same file
+});
+
+function uploadFiles() {
+    uploadInput.click();
+}
+
+async function downloadFile() {
+  const path = prompt("Path of file in the VM (e.g. home/revan/out.txt):");
+  if (!path) return;
+  try {
+    const data = await emulator.read_file(path.replace(/^\/+/, ""));
+    downloadBlob(path.split("/").pop(), data);
+  } catch (err) {
+    alert(`Couldn't read ${path}: ${err.message ?? err}`);
+  }
+}
+
+const wrap = document.getElementById("screen_wrap");
+wrap.addEventListener("dragover", (e) => e.preventDefault());
+wrap.addEventListener("drop", async (e) => {
+  e.preventDefault();
+  for (const file of e.dataTransfer.files) {
+    await emulator.create_file(`${UPLOAD_DIR}/${file.name}`, new Uint8Array(await file.arrayBuffer()));
+  }
+});
+
 const { element } = createButtonPanel([
     { id: "restart", label: "Restart", variant: "primary", onClick: restartVM },
     { id: "stop", label: "Stop", variant: "danger", onClick: () => emulator.stop() },
@@ -73,6 +120,8 @@ const { element } = createButtonPanel([
     { id: "fullscreen", label: "Fullscreen", onClick: () => emulator.screen_go_fullscreen() },
     { id: "save", label: "Save state", wide: true, onClick: saveState },
     { id: "load", label: "Load state", wide: true, onClick: () => openLoadOverlay(loadState) },
+    { id: "upload", label: "Upload", onClick: uploadFiles },
+    { id: "download", label: "Download", onClick: downloadFile },
 ]);
 
 document.querySelector("#button_panel").append(element);
