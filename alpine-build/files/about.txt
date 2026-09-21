@@ -1,0 +1,5 @@
+Exit Status is a game for giving students practice navigating the command line. It is a full Linux OS running on emulated hardware in your browser.
+
+If you mess anything up, simply reload the page to get back to the starting state.  To keep track of your progress you can download a save state, and then upload that and restore it later.  Files may be uploaded or downloaded with the buttons to the right, or for uploading, you can simply drag them onto the terminal and they will be added to /home/user.
+
+

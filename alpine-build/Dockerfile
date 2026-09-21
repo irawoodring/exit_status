@@ -18,6 +18,7 @@ RUN setup-hostname revan
 # RUN echo -e "rmmod ne2k-pci && modprobe ne2k-pci\nrmmod virtio-net && modprobe virtio-net\nhwclock -s\nsetup-interfaces -a -r" > /root/networking.sh && chmod +x /root/networking.sh
 
 RUN echo 'console.log("Hello, world!");' > /root/hello.js
+RUN echo 'Was wondering how long it would take you to try to get root. Well done.' > /root/hello
 
 # https://wiki.alpinelinux.org/wiki/Alpine_Linux_in_a_chroot#Preparing_init_services
 RUN for i in devfs dmesg mdev hwdrivers; do rc-update add $i sysinit; done
@@ -50,4 +51,4 @@ RUN chown user:user -R /home/user
 RUN echo 'export PATH="/home/user/.bin:$PATH"' >> /home/user/.profile && chown user:user /home/user/.profile
 RUN mv /etc/profile.d/color_prompt.sh.disabled /etc/profile.d/color_prompt.sh
 RUN touch /home/user/.hushlogin && chown user:user /home/user/.hushlogin
-RUN echo "The cake is a lie.  There is no spoon." > /etc/issue
+RUN echo "The cake is a lie.  There is no spoon.  Get started with 'cat start_here.txt'" > /etc/issue
